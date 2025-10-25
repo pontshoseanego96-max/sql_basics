@@ -1,0 +1,120 @@
+-- Display all columns for all transactions. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES;
+--------------------------------------------------------------------------------
+--Display only the Transaction ID, Date, and Customer ID for all records.
+SELECT Transaction_id,
+       DATE,
+       Customer_id
+ FROM PRACTICAL1.DATASET.RETAI_SALES;
+ -------------------------------------------------------------------------------------
+ --Display all the distinct product categories in the dataset.
+   SELECT DISTINCT Product_category
+   FROM PRACTICAL1.DATASET.RETAI_SALES;
+---------------------------------------------------------------------------------------
+-- Display all the distinct gender values in the dataset. 
+SELECT DISTINCT Age
+FROM PRACTICAL1.DATASET.RETAI_SALES;
+---------------------------------------------------------------------------------------
+-- Display all transactions where the Age is greater than 40. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES
+WHERE Age>40;
+---------------------------------------------------------------------------------------
+-- Display all transactions where the Price per Unit is between 100 and 500. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES
+WHERE PRICE_PER_UNIT BETWEEN 100 AND 500;
+---------------------------------------------------------------------------------------
+--Display all transactions where the Product Category is either 'Beauty' or 
+--'Electronics'. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES
+WHERE PRODUCT_CATEGORY='Beauty'OR PRODUCT_CATEGORY='Electronics';
+---------------------------------------------------------------------------------------
+--Display all transactions where the Product Category is not 'Clothing'. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES
+WHERE PRODUCT_CATEGORY<>'Clothing';
+---------------------------------------------------------------------------------------
+--Display all transactions where the Quantity is greater than or equal to 3. 
+SELECT*
+FROM PRACTICAL1.DATASET.RETAI_SALES
+WHERE QUANTITY>=3
+----------------------------------------------------------------------------------------
+--Count the total number of transactions. 
+SELECT COUNT(TRANSACTION_ID)AS TOTAL_TRANSACTIONS
+FROM PRACTICAL1.DATASET.RETAI_SALES
+----------------------------------------------------------------------------------------
+--Find the average Age of customers.
+SELECT AVG(AGE)AS Avarage_age
+FROM PRACTICAL1.DATASET.RETAI_SALES;
+----------------------------------------------------------------------------------------
+--Find the total quantity of products sold. 
+SELECT SUM(Quantity) AS total_quantity
+FROM PRACTICAL1.DATASET.RETAI_SALES;
+-----------------------------------------------------------------------------------------
+-- Find the maximum Total Amount spent in a single transaction. 
+SELECT MAX (TOTAL_AMOUNT) AS MAX_TOTAL_AMOUNT
+FROM PRACTICAL1.DATASET.RETAI_SALES; 
+-----------------------------------------------------------------------------------------
+ --Find the minimum Price per Unit in the dataset. 
+ SELECT MIN(Price_per_unit) AS MIN_PRICE_PER_UNIT
+ FROM PRACTICAL1.DATASET.RETAI_SALES;
+ ---------------------------------------------------------------------------------------
+--Find the number of transactions per Product Category. 
+SELECT COUNT(TRANSACTION_ID)AS Transaction_id_count,
+       PRODUCT_CATEGORY
+FROM PRACTICAL1.DATASET.RETAI_SALES
+GROUP BY PRODUCT_CATEGORY;
+----------------------------------------------------------------------------------------
+-- Find the total revenue (Total Amount) per gender. 
+SELECT Gender,
+  SUM(TOTAL_AMOUNT)AS TOTAL_REVENU
+FROM PRACTICAL1.DATASET.RETAI_SALES
+GROUP BY Gender;
+-----------------------------------------------------------------------------------------
+--Find the average Price per Unit per product category. 
+SELECT Product_Category,
+AVG(PRICE_PER_UNIT)
+FROM PRACTICAL1.DATASET.RETAI_SALES
+GROUP BY Product_Category;
+----------------------------------------------------------------------------------------
+--Find the total revenue per product category where total revenue is greater than 
+--10,000. 
+SELECT Product_category,
+    SUM(TOTAL_AMOUNT)AS TOTAL_REVENUE
+FROM PRACTICAL1.DATASET.RETAI_SALES
+GROUP BY Product_category
+HAVING TOTAL_REVENUE>10000;
+---------------------------------------------------------------------------------------
+-- Find the average quantity per product category where the average is more than 2.
+SELECT Product_Category,
+AVG(Quantity)AS AVG_Quantity
+FROM PRACTICAL1.DATASET.RETAI_SALES
+GROUP BY Product_Category
+HAVING AVG_Quantity>2;
+---------------------------------------------------------------------------------------
+--Display a column called Spending_Level that shows 'High' if Total Amount > 1000, 
+--otherwise 'Low'.  
+SELECT Transaction_id,
+        Total_Amount,
+ CASE 
+     WHEN Total_Amount > 1000 THEN'High'
+     ELSE'LOW'
+ END AS Spending_Level     
+FROM PRACTICAL1.DATASET.RETAI_SALES;
+------------------------------------------------------------------------------------------
+Display a new column called Age_Group that labels customers as: 
+-- 'Youth' if Age < 30 
+--'Adult' if Age is between 30 and 59 
+--'Senior' if Age >= 60 
+
+SELECT Customer_id,
+       Age,
+CASE   
+    WHEN Age < 30 THEN'Youth'
+    WHEN Age BETWEEN 30 AND 59 THEN'Adult'
+    WHEN Age >=60 THEN'Senior'
+ END AS Age_Group
+FROM PRACTICAL1.DATASET.RETAI_SALES;
